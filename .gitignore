@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pvd
+*.vtu
+*.xdmf
+*.h5
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
