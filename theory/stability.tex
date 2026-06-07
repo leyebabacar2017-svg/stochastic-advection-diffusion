@@ -1,0 +1,227 @@
+\section{Energy Estimate and Stability}
+
+In this section, we derive an a priori energy estimate for the weak solution of the stochastic advection--diffusion equation.
+
+\subsection{Itô Formula}
+
+Let
+
+\[
+\Phi(u)=\|u\|_{L^2(\Omega)}^2.
+\]
+
+Applying Itô's formula to the stochastic process
+
+\[
+du=(Au+f)\,dt+\sigma\,dW_t,
+\]
+
+we obtain
+
+\[
+d\|u\|^2
+=
+2(Au,u)\,dt
++
+2(f,u)\,dt
++
+\sigma^2\,dt
++
+2\sigma(u,dW_t).
+\]
+
+\subsection{Evaluation of the Deterministic Terms}
+
+Recall that
+
+\[
+Au
+=
+-\mathbf b\cdot\nabla u
++
+\nabla\cdot(\kappa\nabla u).
+\]
+
+Hence
+
+\[
+(Au,u)
+=
+-(\mathbf b\cdot\nabla u,u)
++
+(\nabla\cdot(\kappa\nabla u),u).
+\]
+
+Assuming that
+
+\[
+\nabla\cdot\mathbf b=0,
+\]
+
+and using the homogeneous boundary condition, we obtain
+
+\[
+(\mathbf b\cdot\nabla u,u)=0.
+\]
+
+Furthermore,
+
+\[
+(\nabla\cdot(\kappa\nabla u),u)
+=
+-\kappa\|\nabla u\|^2.
+\]
+
+Consequently,
+
+\[
+(Au,u)
+=
+-\kappa\|\nabla u\|^2.
+\]
+
+\subsection{Energy Equality}
+
+Substituting into the Itô formula yields
+
+\[
+d\|u\|^2
++
+2\kappa
+\|\nabla u\|^2dt
+=
+2(f,u)\,dt
++
+\sigma^2dt
++
+2\sigma(u,dW_t).
+\]
+
+Using Young's inequality,
+
+\[
+2(f,u)
+\le
+\|f\|^2
++
+\|u\|^2.
+\]
+
+Therefore,
+
+\[
+d\|u\|^2
++
+2\kappa
+\|\nabla u\|^2dt
+\le
+\left(
+\|u\|^2
++
+\|f\|^2
++
+\sigma^2
+\right)dt
++
+2\sigma(u,dW_t).
+\]
+
+\subsection{Expectation}
+
+Integrating from $0$ to $t$ and taking expectations gives
+
+\[
+\mathbb E[\|u(t)\|^2]
++
+2\kappa
+\mathbb E
+\left[
+\int_0^t
+\|\nabla u(s)\|^2 ds
+\right]
+\]
+
+\[
+\le
+\|u_0\|^2
++
+\int_0^t
+\mathbb E[\|u(s)\|^2]ds
++
+\int_0^t
+\|f(s)\|^2 ds
++
+\sigma^2 t.
+\]
+
+Since
+
+\[
+\mathbb E
+\left[
+\int_0^t
+(u(s),dW_s)
+\right]
+=
+0,
+\]
+
+the stochastic integral disappears after taking expectations.
+
+\subsection{A Priori Estimate}
+
+Applying Grönwall's lemma, we obtain
+
+\[
+\mathbb E[\|u(t)\|^2]
+\le
+C
+\left(
+\|u_0\|^2
++
+\int_0^T
+\|f(s)\|^2 ds
++
+\sigma^2T
+\right),
+\]
+
+where $C>0$ depends only on $T$.
+
+\begin{theorem}
+Let $u$ be a weak solution of the stochastic advection--diffusion problem.
+
+Then
+
+\[
+\sup_{0\le t\le T}
+\mathbb E[\|u(t)\|^2]
++
+\kappa
+\mathbb E
+\left[
+\int_0^T
+\|\nabla u(t)\|^2dt
+\right]
+\le
+C,
+\]
+
+where
+
+\[
+C=
+C
+\left(
+T,
+\kappa,
+\|u_0\|^2,
+\|f\|_{L^2(0,T;L^2(\Omega))}
+\right).
+\]
+
+\end{theorem}
+
+This estimate provides the fundamental stability 
+property required for the existence analysis and the 
+finite element approximation developed in the following sections.

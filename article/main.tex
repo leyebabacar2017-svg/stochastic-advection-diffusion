@@ -1,0 +1,32 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+\title{Finite Element Approximation of a Stochastic Advection--Diffusion Equation with Additive Noise}
+
+\author{Babacar LEYE}
+\date{\today}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\input{theory/weak_formulation}
+\input{theory/stability}
+\input{theory/existence_uniqueness}
+\input{theory/convergence}
+
+\end{document}

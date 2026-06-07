@@ -61,58 +61,56 @@ Throughout this work, we assume that
 
 Moreover, for simplicity, we assume that
 
-[
+\[
 \nabla\cdot\mathbf b=0
 \qquad \text{in } \Omega.
-]
+\]
 
 \subsection{Functional Setting}
 
 Let
 
-[
+\[
 H=L^2(\Omega),
-]
+\]
 
 equipped with the inner product
 
-[
+\[
 (u,v)_H
-=======
-
+=
 \int_\Omega uv,dx,
-]
+\]
 
 and norm
 
-[
+\[
 |u|_H=(u,u)_H^{1/2}.
-]
+\]
 
 We define
 
-[
+\[
 V=H_0^1(\Omega),
-]
+\]
 
 endowed with the norm
 
-[
+\[
 |v|_V
-=====
-
+=
 |\nabla v|_{L^2(\Omega)}.
-]
+\]
 
 The Gelfand triple
 
-[
+\[
 V
 \subset
 H
 \subset
 V'
-]
+\]
 
 will be used throughout the analysis.
 
@@ -122,10 +120,9 @@ Let $v\in V$ be a test function.
 
 Multiplying equation \eqref{eq:strong} by $v$ and integrating over $\Omega$, we obtain
 
-[
+\[
 (du,v)
-======
-
+=
 (-\mathbf b\cdot\nabla u,v),dt
 +
 (\nabla\cdot(\kappa\nabla u),v),dt
@@ -133,87 +130,83 @@ Multiplying equation \eqref{eq:strong} by $v$ and integrating over $\Omega$, we 
 (f,v),dt
 +
 \sigma(v),dW_t.
-]
+\]
 
 Using Green's formula and the homogeneous boundary condition, we have
 
-[
+\[
 (\nabla\cdot(\kappa\nabla u),v)
-===============================
-
+=
 -\kappa(\nabla u,\nabla v).
-]
+\]
 
 Therefore, the weak formulation becomes
 
-[
+\[
 (du,v)
 +
 a(u,v),dt
-=========
-
+=
 (f,v),dt
 +
 \sigma(v),dW_t,
-]
+\]
 
 for all $v\in V$, where the bilinear form
 
-[
+\[
 a:V\times V\rightarrow\mathbb R
-]
+\]
 
 is defined by
 
-[
+\[
 a(u,v)
-======
-
+=
 \kappa(\nabla u,\nabla v)
 +
 (\mathbf b\cdot\nabla u,v).
-]
+\]
 
 \subsection{Definition of Weak Solution}
 
 A stochastic process
 
-[
+\[
 u:[0,T]\times\Omega_P\rightarrow V
-]
+\]
 
 is called a weak solution of problem \eqref{eq:strong} if
 
-[
+\[
 u
 \in
 L^2\bigl(
 \Omega_P;
 L^2(0,T;V)
 \bigr),
-]
+\]
 
 is adapted to the filtration
 ${\mathcal F_t}_{t\ge0}$,
 satisfies the initial condition
 
-[
+\[
 u(0)=u_0,
-]
+\]
 
 and
 
-[
+\[
 (u(t),v)
 +
 \int_0^t a(u(s),v),ds
-=====================
-
+=
 (u_0,v)
 +
 \int_0^t (f(s),v),ds
 +
 \sigma\int_0^t (v),dW_s,
-]
+\]
 
 for every test function $v\in V$ and almost surely.

@@ -1,0 +1,328 @@
+\section{Finite Element Approximation and Convergence Analysis}
+
+In this section, we introduce the finite element approximation of the stochastic advection--diffusion problem and derive a convergence estimate.
+
+\subsection{Finite Element Space}
+
+Let $\mathcal{T}_h$ be a regular triangulation of the domain $\Omega$ with mesh size $h$.
+
+We define the finite element space
+
+\[
+V_h
+=
+\left\{
+v_h\in H_0^1(\Omega)
+:
+v_h|_K \in \mathbb P_1(K),
+\quad
+\forall K\in\mathcal T_h
+\right\}.
+\]
+
+Throughout this work, we assume that the mesh family is shape-regular and quasi-uniform.
+
+\subsection{Ritz Projection}
+
+Let
+
+\[
+R_h : V \rightarrow V_h
+\]
+
+denote the Ritz projection defined by
+
+\[
+a(R_hu,v_h)
+=
+a(u,v_h),
+\qquad
+\forall v_h\in V_h.
+\]
+
+The following approximation properties are classical.
+
+\begin{lemma}
+Assume that
+
+\[
+u\in H^2(\Omega)\cap H_0^1(\Omega).
+\]
+
+Then there exists a constant $C>0$ independent of $h$ such that
+
+\[
+\|u-R_hu\|_{L^2(\Omega)}
+\le
+Ch^2
+\|u\|_{H^2(\Omega)},
+\]
+
+and
+
+\[
+\|\nabla(u-R_hu)\|_{L^2(\Omega)}
+\le
+Ch
+\|u\|_{H^2(\Omega)}.
+\]
+
+\end{lemma}
+
+\subsection{Semi-Discrete Formulation}
+
+The semi-discrete finite element approximation seeks
+
+\[
+u_h(t)\in V_h
+\]
+
+such that
+
+\[
+(du_h,v_h)
++
+a(u_h,v_h)\,dt
+=
+(f,v_h)\,dt
++
+\sigma(v_h)\,dW_t,
+\]
+
+for all
+
+\[
+v_h\in V_h.
+\]
+
+Let
+
+\[
+\{\varphi_i\}_{i=1}^{N_h}
+\]
+
+be a basis of $V_h$. Writing
+
+\[
+u_h
+=
+\sum_{j=1}^{N_h}
+U_j(t)\varphi_j,
+\]
+
+we obtain the matrix system
+
+\[
+M\,dU
++
+A\,U\,dt
+=
+F\,dt
++
+\sigma G\,dW_t,
+\]
+
+where
+
+\[
+M_{ij}
+=
+(\varphi_j,\varphi_i),
+\]
+
+is the mass matrix and
+
+\[
+A_{ij}
+=
+a(\varphi_j,\varphi_i),
+\]
+
+is the stiffness-advection matrix.
+
+\subsection{Fully Discrete Scheme}
+
+Let
+
+\[
+t_n=n\Delta t,
+\qquad
+n=0,\ldots,N.
+\]
+
+Using the implicit Euler scheme, we obtain
+
+\[
+M U^{n+1}
++
+\Delta t\,A U^{n+1}
+=
+M U^n
++
+\Delta t\,F^n
++
+\sigma G \Delta W_n,
+\]
+
+where
+
+\[
+\Delta W_n
+=
+W_{t_{n+1}}
+-
+W_{t_n}.
+\]
+
+The Wiener increments satisfy
+
+\[
+\Delta W_n
+\sim
+\mathcal N(0,\Delta t).
+\]
+
+\subsection{Discrete Stability}
+
+\begin{theorem}
+Assume that the hypotheses of Sections 2 and 3 hold.
+
+Then the fully discrete solution satisfies
+
+\[
+\max_{0\le n\le N}
+\mathbb E
+\left[
+\|u_h^n\|^2
+\right]
++
+\Delta t
+\sum_{n=0}^{N}
+\mathbb E
+\left[
+\|\nabla u_h^n\|^2
+\right]
+\le C,
+\]
+
+where the constant $C$ is independent of $h$ and $\Delta t$.
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+
+Choosing
+
+\[
+v_h=u_h^{n+1}
+\]
+
+in the discrete formulation and using
+
+\[
+(a-b)a
+=
+\frac12
+\left(
+a^2-b^2+(a-b)^2
+\right),
+\]
+
+one derives a discrete energy inequality.
+
+Taking expectations and applying a discrete Grönwall lemma yields the result.
+
+\end{proof}
+
+\subsection{Error Decomposition}
+
+Let
+
+\[
+e^n
+=
+u(t_n)-u_h^n.
+\]
+
+We decompose the error as
+
+\[
+e^n
+=
+\underbrace{u(t_n)-R_hu(t_n)}_{\eta^n}
++
+\underbrace{R_hu(t_n)-u_h^n}_{\theta^n}.
+\]
+
+The term $\eta^n$ represents the interpolation error, while $\theta^n$ is the discrete error.
+
+Using the approximation properties of the Ritz projection, we obtain
+
+\[
+\|\eta^n\|
+\le
+Ch^2.
+\]
+
+\subsection{Convergence Estimate}
+
+We now state the main convergence result.
+
+\begin{theorem}
+Assume that the exact solution satisfies
+
+\[
+u
+\in
+L^2
+\bigl(
+\Omega_P;
+H^2(\Omega)
+\bigr),
+\]
+
+and possesses sufficient temporal regularity.
+
+Then there exists a constant $C>0$, independent of $h$ and $\Delta t$, such that
+
+\[
+\max_{0\le n\le N}
+\mathbb E
+\left[
+\|u(t_n)-u_h^n\|^2
+\right]
+\le
+C
+\left(
+h^2+\Delta t
+\right).
+\]
+
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+
+Subtracting the continuous and discrete formulations leads to an equation for the discrete error $\theta^n$.
+
+Using the coercivity of the bilinear form, the stability estimate, and the approximation properties of the Ritz projection, we obtain
+
+\[
+\mathbb E
+\left[
+\|\theta^n\|^2
+\right]
+\le
+C
+\left(
+h^2+\Delta t
+\right).
+\]
+
+Combining this estimate with the interpolation error yields the desired result.
+
+\end{proof}
+
+The above theorem shows that the proposed finite element approximation converges strongly in mean square as
+
+\[
+h,\Delta t \rightarrow 0.
+\]

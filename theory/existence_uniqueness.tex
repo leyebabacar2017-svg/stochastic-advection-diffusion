@@ -1,0 +1,265 @@
+\section{Existence and Uniqueness of Weak Solutions}
+
+In this section, we establish the well-posedness of the stochastic advection--diffusion problem introduced in the previous section.
+
+\subsection{Continuity of the Bilinear Form}
+
+Recall that the bilinear form is defined by
+
+\[
+a(u,v)
+=
+\kappa(\nabla u,\nabla v)
++
+(\mathbf b\cdot\nabla u,v),
+\]
+
+for all $u,v\in V$.
+
+\begin{lemma}
+The bilinear form $a(\cdot,\cdot)$ is continuous on $V\times V$. More precisely, there exists a constant $C>0$ such that
+
+\[
+|a(u,v)|
+\le
+C
+\|u\|_V
+\|v\|_V
+\]
+
+for all $u,v\in V$.
+\end{lemma}
+
+\begin{proof}
+Using the Cauchy--Schwarz inequality,
+
+\[
+|\kappa(\nabla u,\nabla v)|
+\le
+\kappa
+\|\nabla u\|
+\|\nabla v\|.
+\]
+
+Moreover,
+
+\[
+|(\mathbf b\cdot\nabla u,v)|
+\le
+\|\mathbf b\|_{L^\infty}
+\|\nabla u\|
+\|v\|.
+\]
+
+Applying the Poincaré inequality,
+
+\[
+\|v\|
+\le
+C_P
+\|\nabla v\|,
+\]
+
+we obtain
+
+\[
+|a(u,v)|
+\le
+C
+\|u\|_V
+\|v\|_V.
+\]
+
+Hence the result follows.
+\end{proof}
+
+\subsection{Coercivity}
+
+\begin{lemma}
+Assume that
+
+\[
+\nabla\cdot\mathbf b=0.
+\]
+
+Then the bilinear form $a(\cdot,\cdot)$ is coercive on $V$:
+
+\[
+a(v,v)
+\ge
+\kappa
+\|\nabla v\|^2
+\]
+
+for all $v\in V$.
+\end{lemma}
+
+\begin{proof}
+
+We have
+
+\[
+a(v,v)
+=
+\kappa\|\nabla v\|^2
++
+(\mathbf b\cdot\nabla v,v).
+\]
+
+Since $\nabla\cdot\mathbf b=0$ and $v=0$ on $\partial\Omega$,
+
+\[
+(\mathbf b\cdot\nabla v,v)=0.
+\]
+
+Therefore,
+
+\[
+a(v,v)
+=
+\kappa
+\|\nabla v\|^2.
+\]
+
+Since $\kappa>0$, the result follows.
+\end{proof}
+
+\subsection{Existence of Weak Solutions}
+
+We are now in a position to establish the existence of a weak solution.
+
+\begin{theorem}
+Assume that
+
+\[
+u_0\in L^2(\Omega),
+\]
+
+\[
+f\in L^2(0,T;L^2(\Omega)),
+\]
+
+and
+
+\[
+\mathbf b\in [L^\infty(\Omega)]^2.
+\]
+
+Then there exists a weak solution
+
+\[
+u
+\in
+L^2\bigl(
+\Omega_P;
+L^2(0,T;V)
+\bigr)
+\]
+
+to the stochastic advection--diffusion problem.
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+
+The proof is based on the Galerkin approximation method.
+
+Let
+
+\[
+V_m
+=
+\operatorname{span}
+\{\varphi_1,\ldots,\varphi_m\}.
+\]
+
+be a finite-dimensional subspace of $V$.
+
+We seek an approximation
+
+\[
+u_m(t)
+=
+\sum_{i=1}^{m}
+c_i(t)\varphi_i.
+\]
+
+The coefficients satisfy a finite-dimensional stochastic system.
+
+Using the a priori estimate established in Section 3, one obtains uniform bounds with respect to $m$.
+
+Compactness arguments and weak convergence allow passage to the limit.
+
+Hence a weak solution exists.
+\end{proof}
+
+\subsection{Uniqueness}
+
+\begin{theorem}
+The weak solution of the stochastic advection--diffusion problem is unique.
+\end{theorem}
+
+\begin{proof}
+
+Let $u_1$ and $u_2$ be two weak solutions.
+
+Define
+
+\[
+w=u_1-u_2.
+\]
+
+Subtracting the two equations yields
+
+\[
+dw
+=
+Aw\,dt.
+\]
+
+Testing with $w$ gives
+
+\[
+\frac12
+\frac{d}{dt}
+\|w\|^2
++
+a(w,w)
+=
+0.
+\]
+
+Using coercivity,
+
+\[
+\frac12
+\frac{d}{dt}
+\|w\|^2
++
+\kappa
+\|\nabla w\|^2
+=
+0.
+\]
+
+Since
+
+\[
+w(0)=0,
+\]
+
+we obtain
+
+\[
+\|w(t)\|^2=0
+\]
+
+for all $t\in[0,T]$.
+
+Therefore
+
+\[
+u_1=u_2.
+\]
+
+Hence the solution is unique.
+\end{proof}
