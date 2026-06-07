@@ -1,0 +1,219 @@
+% Version 0.1
+% Mathematical framework
+% To be refined after literature review
+
+\section{Weak Formulation of the Stochastic Advection--Diffusion Problem}
+
+\subsection{Strong Formulation}
+
+Let $\Omega \subset \mathbb{R}^2$ be a bounded polygonal domain with boundary $\partial\Omega$, and let $T>0$ be a final time.
+
+We consider the stochastic advection--diffusion equation
+
+\begin{equation}
+\label{eq:strong}
+du=
+\left(
+-\mathbf b\cdot\nabla u
++\nabla\cdot(\kappa\nabla u)
++f
+\right)dt
++\sigma,dW_t
+\qquad \text{in } \Omega\times(0,T),
+\end{equation}
+
+subject to the homogeneous Dirichlet boundary condition
+
+\begin{equation}
+u=0
+\qquad \text{on } \partial\Omega\times(0,T),
+\end{equation}
+
+and the initial condition
+
+\begin{equation}
+u(x,0)=u_0(x)
+\qquad \text{in } \Omega.
+\end{equation}
+
+Here,
+
+\begin{itemize}
+\item $u=u(x,t)$ denotes the unknown state variable,
+\item $\mathbf b=(b_1,b_2)^T$ is a prescribed velocity field,
+\item $\kappa>0$ is the diffusion coefficient,
+\item $f$ is a source term,
+\item $\sigma>0$ is the noise intensity,
+\item ${W_t}*{t\ge0}$ is a standard Wiener process defined on a filtered probability space
+$(\Omega_P,\mathcal F,{\mathcal F_t}*{t\ge0},\mathbb P)$.
+\end{itemize}
+
+\subsection{Assumptions}
+
+Throughout this work, we assume that
+
+\begin{enumerate}
+\item $\kappa>0$;
+\item $\mathbf b\in [L^\infty(\Omega)]^2$;
+\item $f\in L^2(0,T;L^2(\Omega))$;
+\item $u_0\in L^2(\Omega)$.
+\end{enumerate}
+
+Moreover, for simplicity, we assume that
+
+[
+\nabla\cdot\mathbf b=0
+\qquad \text{in } \Omega.
+]
+
+\subsection{Functional Setting}
+
+Let
+
+[
+H=L^2(\Omega),
+]
+
+equipped with the inner product
+
+[
+(u,v)_H
+=======
+
+\int_\Omega uv,dx,
+]
+
+and norm
+
+[
+|u|_H=(u,u)_H^{1/2}.
+]
+
+We define
+
+[
+V=H_0^1(\Omega),
+]
+
+endowed with the norm
+
+[
+|v|_V
+=====
+
+|\nabla v|_{L^2(\Omega)}.
+]
+
+The Gelfand triple
+
+[
+V
+\subset
+H
+\subset
+V'
+]
+
+will be used throughout the analysis.
+
+\subsection{Weak Formulation}
+
+Let $v\in V$ be a test function.
+
+Multiplying equation \eqref{eq:strong} by $v$ and integrating over $\Omega$, we obtain
+
+[
+(du,v)
+======
+
+(-\mathbf b\cdot\nabla u,v),dt
++
+(\nabla\cdot(\kappa\nabla u),v),dt
++
+(f,v),dt
++
+\sigma(v),dW_t.
+]
+
+Using Green's formula and the homogeneous boundary condition, we have
+
+[
+(\nabla\cdot(\kappa\nabla u),v)
+===============================
+
+-\kappa(\nabla u,\nabla v).
+]
+
+Therefore, the weak formulation becomes
+
+[
+(du,v)
++
+a(u,v),dt
+=========
+
+(f,v),dt
++
+\sigma(v),dW_t,
+]
+
+for all $v\in V$, where the bilinear form
+
+[
+a:V\times V\rightarrow\mathbb R
+]
+
+is defined by
+
+[
+a(u,v)
+======
+
+\kappa(\nabla u,\nabla v)
++
+(\mathbf b\cdot\nabla u,v).
+]
+
+\subsection{Definition of Weak Solution}
+
+A stochastic process
+
+[
+u:[0,T]\times\Omega_P\rightarrow V
+]
+
+is called a weak solution of problem \eqref{eq:strong} if
+
+[
+u
+\in
+L^2\bigl(
+\Omega_P;
+L^2(0,T;V)
+\bigr),
+]
+
+is adapted to the filtration
+${\mathcal F_t}_{t\ge0}$,
+satisfies the initial condition
+
+[
+u(0)=u_0,
+]
+
+and
+
+[
+(u(t),v)
++
+\int_0^t a(u(s),v),ds
+=====================
+
+(u_0,v)
++
+\int_0^t (f(s),v),ds
++
+\sigma\int_0^t (v),dW_s,
+]
+
+for every test function $v\in V$ and almost surely.
