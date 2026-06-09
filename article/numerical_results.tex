@@ -1,0 +1,183 @@
+\section{Numerical Experiments}
+
+This section presents numerical experiments designed to validate the theoretical results established in the previous sections. The objectives are to verify the convergence properties of the proposed finite element approximation, investigate the influence of stochastic forcing, and illustrate potential applications to environmental and climate-related transport phenomena.
+
+\subsection{Test Case 1: Spatial Convergence}
+
+We first consider a manufactured solution approach in order to assess the spatial accuracy of the finite element approximation.
+
+The computational domain is defined as
+
+\[
+\Omega=(0,1)^2.
+\]
+
+The exact solution is chosen as
+
+\[
+u(x,y,t)
+=
+e^{-t}
+\sin(\pi x)
+\sin(\pi y).
+\]
+
+The source term $f$ is computed analytically so that the exact solution satisfies the stochastic advection--diffusion equation.
+
+A sequence of uniformly refined meshes is considered:
+
+\[
+h=\frac18,\quad
+\frac1{16},\quad
+\frac1{32},\quad
+\frac1{64}.
+\]
+
+The numerical error is measured in the $L^2$ norm:
+
+\[
+E_h
+=
+|u-u_h|_{L^2(\Omega)}.
+\]
+
+The experimental order of convergence is computed using
+
+\[
+\mathrm{EOC}
+=
+\frac{
+\log(E_h/E_{h/2})
+}{
+\log(2)
+}.
+\]
+
+\begin{table}[H]
+\centering
+\caption{Spatial convergence study}
+\begin{tabular}{ccc}
+\hline
+Mesh size $h$ & Error $E_h$ & EOC \\
+\hline
+$1/8$  &  &  \\
+$1/16$ &  &  \\
+$1/32$ &  &  \\
+$1/64$ &  &  \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Test Case 2: Temporal Convergence}
+
+To assess the temporal accuracy of the implicit Euler scheme, a sufficiently fine mesh is fixed and the time step is progressively reduced.
+
+The following values are considered:
+
+\[
+\Delta t
+=
+0.1,\quad
+0.05,\quad
+0.025,\quad
+0.0125.
+\]
+
+The temporal error is defined by
+
+\[
+E_{\Delta t}
+=
+|u-u_h|_{L^2(\Omega)}.
+\]
+
+\begin{table}[H]
+\centering
+\caption{Temporal convergence study}
+\begin{tabular}{ccc}
+\hline
+$\Delta t$ & Error $E_{\Delta t}$ & EOC \\
+\hline
+0.1    &  &  \\
+0.05   &  &  \\
+0.025  &  &  \\
+0.0125 &  &  \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Test Case 3: Influence of Stochastic Forcing}
+
+We now investigate the effect of stochastic forcing on the numerical solution.
+
+Several noise intensities are considered:
+
+\[
+\sigma
+0,
+\quad
+0.1,
+\quad
+0.2,
+\quad
+0.5.
+\]
+
+For each value of $\sigma$, multiple realizations are generated and the corresponding solution trajectories are analyzed.
+
+The following quantities are monitored:
+
+\begin{itemize}
+\item mean solution;
+\item variance;
+\item confidence intervals;
+\item spatial distribution of uncertainty.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/stochastic_trajectories.png}
+\caption{Sample stochastic trajectories for different noise intensities.}
+\label{fig:stochastic_trajectories}
+\end{figure}
+
+\subsection{Test Case 4: Environmental Transport Scenario}
+
+In this experiment, the unknown variable is interpreted as the concentration of a transported quantity such as temperature, humidity, or pollutant concentration.
+
+The velocity field is chosen as
+
+\[
+\mathbf b=(1,0)^T,
+\]
+
+representing a uniform transport from left to right.
+
+The purpose of this experiment is to illustrate the combined effects of
+
+\begin{itemize}
+\item advection;
+\item diffusion;
+\item stochastic forcing.
+\end{itemize}
+
+Representative snapshots of the solution will be presented at different times.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/transport_solution.png}
+\caption{Evolution of the stochastic advection--diffusion solution.}
+\label{fig:transport_solution}
+\end{figure}
+
+\subsection{Discussion}
+
+The numerical experiments are expected to confirm:
+
+\begin{itemize}
+\item the convergence properties predicted by the theoretical analysis;
+\item the stability of the proposed numerical scheme;
+\item the capability of the stochastic model to represent uncertainty propagation in transport phenomena.
+\end{itemize}
+
+These results provide a first step toward the application of stochastic finite element methods to environmental and climate-related systems.

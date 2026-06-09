@@ -7,12 +7,22 @@
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{hyperref}
+\usepackage{float}
 
 \geometry{margin=2.5cm}
 
-\title{Finite Element Approximation of a Stochastic Advection--Diffusion Equation with Additive Noise}
+\title{
+Mathematical Analysis and Finite Element Approximation of a Stochastic Advection--Diffusion Equation
+}
 
-\author{Babacar LEYE}
+\author{
+Babacar LEYE$^{1}$,
+Malicki ZOROM$^{1}$,
+Mamadou DIOP$^{1}$\\[0.5em]
+{\small $^{1}$ Institut International d'Ingénierie de l'Eau et de l'Environnement (2iE), Ouagadougou, Burkina Faso}\\
+{\small \texttt{babacar.leye@2ie-edu.org}}
+}
+
 \date{\today}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -22,11 +32,46 @@
 
 \maketitle
 
+\input{abstract}
+
 \tableofcontents
 
-\input{theory/weak_formulation}
-\input{theory/stability}
-\input{theory/existence_uniqueness}
-\input{theory/convergence}
+\newpage
+
+%--------------------------------------------------
+% Introduction
+%--------------------------------------------------
+
+\input{introduction}
+
+%--------------------------------------------------
+% Theory
+%--------------------------------------------------
+
+\input{../theory/preliminaries}
+\input{../theory/weak_formulation}
+\input{../theory/stability}
+\input{../theory/existence_uniqueness}
+\input{../theory/convergence}
+
+%--------------------------------------------------
+% Numerical Results
+%--------------------------------------------------
+
+\input{numerical_results}
+
+%--------------------------------------------------
+% Conclusion
+%--------------------------------------------------
+
+\input{conclusion}
+
+%--------------------------------------------------
+% Bibliography
+%--------------------------------------------------
+
+\bibliographystyle{plain}
+
+\bibliography{references}
 
 \end{document}

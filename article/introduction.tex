@@ -1,0 +1,63 @@
+\section{Introduction}
+
+Many physical, biological, and environmental phenomena are subject to uncertainty and random fluctuations. Examples include pollutant transport in rivers and groundwater, heat transfer in heterogeneous media, atmospheric dispersion, and climate dynamics. In such situations, deterministic partial differential equations may fail to accurately represent the variability observed in real systems.
+
+Stochastic partial differential equations (SPDEs) provide a natural framework for incorporating uncertainty into mathematical models. By combining differential operators with stochastic forcing terms, SPDEs enable the description of systems influenced by random perturbations. Over the last decades, SPDEs have become an important research area at the intersection of applied mathematics, numerical analysis, probability theory, and scientific computing.
+
+The mathematical analysis of SPDEs has been extensively studied in the literature 
+\cite{DaPrato2014,LiuRockner2015}. Foundational contributions can be found in the works of Da Prato and 
+Zabczyk, who developed the infinite-dimensional stochastic analysis framework, and in the variational 
+approach introduced by Liu and Röckner. These frameworks provide powerful tools for establishing existence,
+uniqueness, and regularity properties of stochastic evolution equations.
+
+The mathematical analysis of stochastic partial differential equations has been extensively developed over the past decades. Fundamental results concerning existence, uniqueness, and regularity of solutions can be found in the monographs of Da Prato and Zabczyk \cite{DaPrato2014} and Liu and Röckner \cite{LiuRockner2015}. These works provide the theoretical foundations for the study of stochastic evolution equations in infinite-dimensional spaces.
+
+From the numerical viewpoint, finite element methods have become one of the most successful techniques for the approximation of deterministic and stochastic partial differential equations. Classical references include the works of Brenner and Scott \cite{BrennerScott2008} and Thomée \cite{Thomee2006}, which provide a rigorous framework for the analysis of Galerkin approximations of elliptic and parabolic problems.
+
+More recently, considerable attention has been devoted to the numerical approximation of stochastic partial differential equations. Various spatial discretization techniques, including finite element and finite difference methods, have been proposed for stochastic diffusion and reaction--diffusion equations. Stability properties, strong convergence, and weak convergence estimates have been established for several classes of SPDEs.
+
+Despite these advances, stochastic advection--diffusion equations remain comparatively less explored, particularly in the context of finite element approximations combining transport effects, diffusion mechanisms, and stochastic forcing. Such models are of particular interest in environmental sciences, climate modeling, groundwater transport, and uncertainty quantification, where random perturbations may significantly influence the system dynamics.
+
+The present work aims to contribute to this research direction by studying a stochastic advection--diffusion equation driven by additive noise. In contrast with many existing studies focusing primarily on diffusion-dominated stochastic models, the present formulation explicitly incorporates both transport and diffusion mechanisms. Furthermore, a complete finite element framework is developed, including the derivation of a weak formulation, stability estimates, existence and uniqueness results, and a convergence analysis of the fully discrete approximation.
+From a numerical perspective, finite element methods have proven to be effective for the approximation 
+of partial differential equations and time-dependent diffusion problems \cite{BrennerScott2008,Thomee2006}. In recent years, significant progress has been achieved in the numerical analysis of stochastic partial differential equations, including the development of spatial and temporal discretization techniques and the derivation of strong and weak convergence results. However, stochastic advection--diffusion equations continue to attract considerable attention due to their importance in environmental and transport processes, as well as the mathematical challenges arising from the combined effects of advection, diffusion, and stochastic forcing.
+
+In this work, we consider the stochastic advection--diffusion equation
+
+\[
+du
+=
+\left(
+-\mathbf b\cdot\nabla u
++
+\nabla\cdot(\kappa\nabla u)
++
+f
+\right)dt
++
+\sigma \phi(x)\,dW_t
+\]
+
+in a bounded domain $\Omega \subset \mathbb R^2$, supplemented with homogeneous Dirichlet boundary conditions and a prescribed initial condition. Here, $\mathbf b$ denotes a velocity field, $\kappa$ is the diffusion coefficient, $f$ is a source term, and the stochastic forcing is represented by a Wiener process.
+
+The main objective of this paper is to investigate the mathematical properties of this problem and to develop a finite element approximation. More precisely, we establish a variational formulation of the stochastic advection--diffusion equation, derive energy estimates, prove existence and uniqueness of weak solutions, and study a finite element discretization based on continuous piecewise linear elements and an implicit Euler scheme in time.
+
+The main contributions of this paper are summarized as follows:
+
+\begin{enumerate}
+\item formulation of the stochastic advection--diffusion problem within a variational framework;
+
+\item derivation of a priori energy estimates and stability properties;
+
+\item proof of existence and uniqueness of weak solutions;
+
+\item construction of a finite element approximation based on continuous piecewise linear elements in space and an implicit Euler discretization in time;
+
+\item derivation of stability estimates for the fully discrete scheme;
+
+\item convergence analysis of the proposed numerical method;
+
+\item numerical validation of the theoretical findings.
+\end{enumerate}
+
+The remainder of the paper is organized as follows. Section~2 introduces the probabilistic and functional framework used throughout the paper. Section~3 presents the weak formulation of the problem. Energy estimates and stability properties are derived in Section~4. The existence and uniqueness of weak solutions are established in Section~5. Section~6 is devoted to the finite element approximation and convergence analysis. Finally, numerical experiments illustrating the theoretical results are presented in Section~7.

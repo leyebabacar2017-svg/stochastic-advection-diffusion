@@ -1,0 +1,99 @@
+\section*{Research Positioning and Scientific Contribution}
+
+\subsection*{Research Context}
+
+Climate systems are characterized by strong spatial and temporal variability arising from complex interactions between atmospheric, hydrological, and environmental processes. Classical deterministic partial differential equations are often insufficient to represent uncertainties associated with unresolved physical processes, measurement errors, and random environmental perturbations.
+
+Stochastic partial differential equations provide a natural mathematical framework for incorporating such uncertainties into climate and environmental models.
+
+\subsection*{Problem Considered}
+
+We consider a stochastic advection--diffusion equation of the form
+
+\[
+du
+=
+\left(
+-\mathbf b\cdot\nabla u
++
+\nabla\cdot(\kappa\nabla u)
++
+f
+\right)dt
++
+\sigma \phi(x),dW_t,
+\]
+
+where
+
+\begin{itemize}
+\item $u(x,t)$ represents a climatic variable (temperature, humidity, pollutant concentration, etc.);
+\item $\mathbf b(x,t)$ denotes a transport velocity field;
+\item $\kappa$ is the diffusion coefficient;
+\item $f$ is a source term;
+\item $\phi(x)$ describes the spatial structure of the uncertainty;
+\item $W_t$ is a Wiener process.
+\end{itemize}
+
+\subsection*{Scientific Motivation}
+
+Many environmental and climate models involve advection and diffusion mechanisms subject to uncertain forcing. Examples include:
+
+\begin{itemize}
+\item atmospheric temperature transport;
+\item humidity dynamics;
+\item contaminant transport;
+\item dispersion of greenhouse gases;
+\item uncertainty propagation in climate simulations.
+\end{itemize}
+
+Although stochastic diffusion equations have been extensively studied, stochastic advection--diffusion equations remain comparatively less explored, especially from the viewpoint of finite element approximation and convergence analysis.
+
+\subsection*{Research Gap}
+
+Existing literature mainly focuses on:
+
+\begin{itemize}
+\item stochastic diffusion equations;
+\item reaction--diffusion SPDEs;
+\item abstract stochastic evolution equations.
+\end{itemize}
+
+Fewer studies address the simultaneous treatment of
+
+\begin{itemize}
+\item advection;
+\item diffusion;
+\item stochastic forcing;
+\item finite element approximation;
+\item climate-oriented applications.
+\end{itemize}
+
+\subsection*{Main Contributions}
+
+The proposed work aims to provide:
+
+\begin{enumerate}
+\item a variational formulation of a stochastic advection--diffusion equation;
+\item stability and energy estimates;
+\item existence and uniqueness results;
+\item a finite element approximation based on continuous piecewise linear elements;
+\item a convergence analysis of the fully discrete scheme;
+\item numerical experiments illustrating uncertainty propagation in transport phenomena;
+\item a framework suitable for future climate-related applications.
+\end{enumerate}
+
+\subsection*{Long-Term Perspective}
+
+The present work constitutes a first step towards the development of stochastic finite element models for climate and environmental systems.
+
+Future extensions include:
+
+\begin{itemize}
+\item multiplicative noise;
+\item random diffusion coefficients;
+\item stochastic fluid dynamics;
+\item data assimilation;
+\item climate reanalysis data integration (ERA5);
+\item uncertainty quantification for environmental prediction.
+\end{itemize}

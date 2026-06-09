@@ -1,0 +1,190 @@
+\section{Preliminaries}
+
+In this section, we introduce the probabilistic framework, the functional setting, and some useful inequalities that will be used throughout the paper.
+
+\subsection{Probabilistic Framework}
+
+Let
+
+\[
+(\Omega_P,\mathcal F,\mathbb P)
+\]
+
+be a complete probability space endowed with a filtration
+
+\[
+\{\mathcal F_t\}_{t\ge0},
+\]
+
+satisfying the usual conditions of completeness and right continuity.
+
+We consider a standard one-dimensional Wiener process
+
+\[
+W=\{W_t\}_{t\ge0}
+\]
+
+adapted to the filtration
+
+\[
+\{\mathcal F_t\}_{t\ge0}.
+\]
+
+Throughout this work, all stochastic processes are assumed to be adapted to this filtration.
+
+\subsection{Functional Spaces}
+
+Let $\Omega\subset\mathbb R^2$ be a bounded polygonal domain.
+
+We introduce the Hilbert space
+
+\[
+H=L^2(\Omega),
+\]
+
+equipped with the inner product
+
+\[
+(u,v)
+=
+\int_\Omega uv\,dx
+\]
+
+and norm
+
+\[
+\|u\|
+=
+(u,u)^{1/2}.
+\]
+
+We also define
+
+\[
+V=H_0^1(\Omega),
+\]
+
+equipped with the norm
+
+\[
+\|v\|_V
+=
+\|\nabla v\|_{L^2(\Omega)}.
+\]
+
+The Gelfand triple
+
+\[
+V
+\subset
+H
+\subset
+V'
+\]
+
+plays a central role in the variational formulation of the stochastic problem.
+
+\subsection{Bochner Spaces}
+
+For a Banach space $X$, we denote by
+
+\[
+L^2(0,T;X)
+\]
+
+the space of square-integrable functions from $(0,T)$ into $X$.
+
+Similarly,
+
+\[
+L^2(\Omega_P;X)
+\]
+
+denotes the space of square-integrable random variables taking values in $X$.
+
+We will frequently use the space
+
+\[
+L^2
+\bigl(
+\Omega_P;
+L^2(0,T;V)
+\bigr).
+\]
+
+\subsection{Poincaré Inequality}
+
+The following inequality holds for all
+
+\[
+v\in H_0^1(\Omega).
+\]
+
+:contentReference[oaicite:0]{index=0}
+
+where $C_P>0$ denotes the Poincaré constant.
+
+\subsection{Young's Inequality}
+
+For any
+
+\[
+a,b\in\mathbb R
+\]
+
+and any
+
+\[
+\varepsilon>0,
+\]
+
+the following inequality holds.
+
+:contentReference[oaicite:1]{index=1}
+
+This inequality will be used repeatedly in the derivation of energy estimates.
+
+\subsection{Grönwall's Lemma}
+
+We recall the classical continuous Grönwall lemma.
+
+\begin{lemma}
+Let $y:[0,T]\rightarrow\mathbb R$ be a nonnegative function satisfying
+
+\[
+y(t)
+\le
+C
++
+\int_0^t
+\alpha(s)y(s)\,ds,
+\]
+
+where
+
+\[
+C\ge0
+\]
+
+and
+
+\[
+\alpha\in L^1(0,T).
+\]
+
+Then
+
+\[
+y(t)
+\le
+C
+\exp
+\left(
+\int_0^t
+\alpha(s)\,ds
+\right).
+\]
+
+\end{lemma}
+
+The discrete version of Grönwall's lemma will also be used in the convergence analysis of the fully discrete finite element scheme.

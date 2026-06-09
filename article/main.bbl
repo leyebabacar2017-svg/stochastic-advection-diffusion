@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{BrennerScott2008}
+Susanne Brenner and Ridgway Scott.
+\newblock {\em The Mathematical Theory of Finite Element Methods}.
+\newblock Springer, 3rd edition, 2008.
+
+\bibitem{LiuRockner2015}
+Wei Liu and Michael R\"ockner.
+\newblock {\em Stochastic Partial Differential Equations: An Introduction}.
+\newblock Springer, 2015.
+
+\bibitem{DaPrato2014}
+Giuseppe~Da Prato and Jerzy Zabczyk.
+\newblock {\em Stochastic Equations in Infinite Dimensions}.
+\newblock Cambridge University Press, 2nd edition, 2014.
+
+\bibitem{Thomee2006}
+Vidar Thom\'ee.
+\newblock {\em Galerkin Finite Element Methods for Parabolic Problems}.
+\newblock Springer, 2nd edition, 2006.
+
+\end{thebibliography}
