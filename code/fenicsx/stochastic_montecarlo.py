@@ -15,6 +15,8 @@ import numpy as np
 T = 1.0
 dt = 0.0125
 
+Nmc = 10
+
 num_steps = int(T / dt)
 
 t = 0.0
@@ -36,6 +38,12 @@ domain = mesh.create_unit_square(
 # ============================================================
 
 V = fem.functionspace(domain, ("Lagrange", 1))
+
+ndofs = V.dofmap.index_map.size_local
+
+mean_solution = np.zeros(ndofs)
+
+energy = []
 
 b = ufl.as_vector([1.0, 0.0])
 
@@ -116,6 +124,11 @@ f = (
 # Variational formulation
 # ============================================================
 
+noise = fem.Constant(
+    domain,
+    PETSc.ScalarType(0.0)
+)
+
 u = ufl.TrialFunction(V)
 v = ufl.TestFunction(V)
 
@@ -134,104 +147,156 @@ L = (
 # ============================================================
 # Solve
 # ============================================================
-
 uh = fem.Function(V)
 
-noise = fem.Constant(
-    domain,
-    PETSc.ScalarType(0.0)
-)
+for mc in range(Nmc):
 
-for n in range(num_steps):
+    if domain.comm.rank == 0:
+        print(
+            f"\nMonte Carlo sample "
+            f"{mc+1}/{Nmc}"
+        )
 
-    t += dt
+    # ==========================================
+    # Reset initial condition
+    # ==========================================
 
-    time.value = PETSc.ScalarType(t)
-    
-    dW = np.sqrt(dt) * np.random.normal()
-    
-    noise.value = PETSc.ScalarType(
-          sigma * dW / dt
-    )  
+    t = 0.0
 
-    problem = LinearProblem(
-        a,
-        L,
-        bcs=[bc],
-        petsc_options_prefix="advdiff_",
-        petsc_options={
-            "ksp_type": "preonly",
-            "pc_type": "lu"
-        }
+    time.value = PETSc.ScalarType(0.0)
+
+    u_n.interpolate(
+        fem.Expression(
+            ufl.sin(ufl.pi * x[0])
+            * ufl.sin(ufl.pi * x[1]),
+            V.element.interpolation_points
+        )
     )
 
-    uh = problem.solve()
+    # ==========================================
+    # Time loop
+    # ==========================================
 
-    u_n.x.array[:] = uh.x.array
+    for n in range(num_steps):
 
-    if domain.comm.rank == 0 and n % 10 == 0:
-       print(
-             f"Step {n:4d} "
-             f"t={t:.3f} "
-             f"dW={dW:.4e}"
-       )
+        t += dt
+
+        time.value = PETSc.ScalarType(t)
+
+        dW = np.sqrt(dt) * np.random.normal()
+
+        noise.value = PETSc.ScalarType(
+            sigma * dW / dt
+        )
+
+        problem = LinearProblem(
+            a,
+            L,
+            bcs=[bc],
+            petsc_options_prefix="advdiff_",
+            petsc_options={
+                "ksp_type": "preonly",
+                "pc_type": "lu"
+            }
+        )
+
+        uh = problem.solve()
+
+        u_n.x.array[:] = uh.x.array
+
+        if (
+            domain.comm.rank == 0
+            and n % 10 == 0
+        ):
+            print(
+                f"Step {n:4d} "
+                f"t={t:.3f} "
+                f"dW={dW:.4e}"
+            )
+
+    # ==========================================
+    # Statistics for current realization
+    # ==========================================
+
+    mean_solution += uh.x.array
+
+    energy_form = fem.form(
+        ufl.inner(uh, uh) * ufl.dx
+    )
+
+    energy_mc = domain.comm.allreduce(
+        fem.assemble_scalar(energy_form),
+        op=MPI.SUM
+    )
+
+    energy.append(energy_mc)
 
 uh.name = "solution"
 
-# ============================================================
-# Exact solution interpolation
-# ============================================================
+mean_solution /= Nmc
 
-time.value = PETSc.ScalarType(T)
+u_mean = fem.Function(V)
 
-u_exact_expr = (
-    ufl.exp(-time)
-    * ufl.sin(ufl.pi * x[0])
-    * ufl.sin(ufl.pi * x[1])
-)
+u_mean.x.array[:] = mean_solution
 
-u_exact = fem.Function(V)
-u_exact.interpolate(
-    fem.Expression(
-        u_exact_expr,
-        V.element.interpolation_points
-    )
-)
-# ============================================================
-# L2 error
-# ============================================================
+u_mean.name = "mean_solution"
 
-error_form = fem.form(
-    ufl.inner(
-        uh - u_exact,
-        uh - u_exact
-    ) * ufl.dx
-)
+mean_energy = np.mean(energy)
 
-error_L2 = np.sqrt(
-    domain.comm.allreduce(
-        fem.assemble_scalar(error_form),
-        op=MPI.SUM
-    )
-)
+std_energy = np.std(energy)
 
 if domain.comm.rank == 0:
+
     print()
     print("===================================")
-    print("Advection-Diffusion problem")
+    print("Monte Carlo statistics")
     print("===================================")
-    print(f"Mesh : {nx} x {ny}")
-    print(f"L2 error = {error_L2:.6e}")
-    print()
+    print(f"Nmc         = {Nmc}")
+    print(f"Mean energy = {mean_energy:.6e}")
+    print(f"Std energy  = {std_energy:.6e}")
+    
+
 
 # ============================================================
 # Output
 # ============================================================
 
+import csv
+import os
+
+os.makedirs(
+    "results/errors",
+    exist_ok=True
+)
+
+with open(
+    "results/errors/stochastic_statistics.csv",
+    "w",
+    newline=""
+) as f:
+
+    writer = csv.writer(f)
+
+    writer.writerow([
+        "Nmc",
+        "mean_energy",
+        "std_energy"
+    ])
+
+    writer.writerow([
+        Nmc,
+        mean_energy,
+        std_energy
+    ])
+    
+os.makedirs(
+    "results/vtk",
+    exist_ok=True
+)
+
 with VTXWriter(
     domain.comm,
-    "results/vtk/advection_diffusion_transient.bp",
-    [uh]
+    "results/vtk/mean_solution.bp",
+    [u_mean]
 ) as vtx:
     vtx.write(0.0)
-
