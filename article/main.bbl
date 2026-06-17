@@ -1,19 +1,58 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{BrennerScott2008}
 Susanne Brenner and Ridgway Scott.
 \newblock {\em The Mathematical Theory of Finite Element Methods}.
 \newblock Springer, 3rd edition, 2008.
 
+\bibitem{CarelliProhl2012}
+Elena Carelli and Andreas Prohl.
+\newblock Rates of convergence for discretizations of the stochastic
+  incompressible navier--stokes equations.
+\newblock {\em SIAM Journal on Numerical Analysis}, 50(5):2467--2496, 2012.
+
+\bibitem{Evans2010}
+Lawrence~C. Evans.
+\newblock {\em Partial Differential Equations}.
+\newblock American Mathematical Society, 2nd edition, 2010.
+
+\bibitem{KovacsLarssonLindgren2015}
+Mih{'a}ly Kov{'a}cs, Stig Larsson, and Fredrik Lindgren.
+\newblock Strong convergence of the finite element method with truncated noise
+  for semilinear stochastic evolution equations with additive noise.
+\newblock {\em Numerical Algorithms}, 68(3):581--611, 2015.
+
+\bibitem{LarssonThomee2003}
+Stig Larsson and Vidar Thom{'e}e.
+\newblock {\em Partial Differential Equations with Numerical Methods}.
+\newblock Springer, 2003.
+
 \bibitem{LiuRockner2015}
 Wei Liu and Michael R\"ockner.
 \newblock {\em Stochastic Partial Differential Equations: An Introduction}.
 \newblock Springer, 2015.
 
+\bibitem{LordPowellShardlow2014}
+Gabriel~J. Lord, Catherine~E. Powell, and Tony Shardlow.
+\newblock {\em An Introduction to Computational Stochastic PDEs}.
+\newblock Cambridge University Press, 2014.
+
 \bibitem{DaPrato2014}
 Giuseppe~Da Prato and Jerzy Zabczyk.
 \newblock {\em Stochastic Equations in Infinite Dimensions}.
 \newblock Cambridge University Press, 2nd edition, 2014.
+
+\bibitem{Printems2001}
+Jacques Printems.
+\newblock On the discretization in time of parabolic stochastic partial
+  differential equations.
+\newblock {\em Mathematical Modelling and Numerical Analysis},
+  35(6):1055--1078, 2001.
+
+\bibitem{QuarteroniValli2008}
+Alfio Quarteroni and Alberto Valli.
+\newblock {\em Numerical Approximation of Partial Differential Equations}.
+\newblock Springer, 2008.
 
 \bibitem{Thomee2006}
 Vidar Thom\'ee.

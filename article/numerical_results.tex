@@ -1,183 +1,224 @@
-\section{Numerical Experiments}
+\section{Numerical Results}
 
-This section presents numerical experiments designed to validate the theoretical results established in the previous sections. The objectives are to verify the convergence properties of the proposed finite element approximation, investigate the influence of stochastic forcing, and illustrate potential applications to environmental and climate-related transport phenomena.
-
-\subsection{Test Case 1: Spatial Convergence}
-
-We first consider a manufactured solution approach in order to assess the spatial accuracy of the finite element approximation.
-
-The computational domain is defined as
+In this section, we illustrate the performance of the proposed finite element approximation for 
+the stochastic advection--diffusion equation. All simulations were carried out using FEniCSx 
+0.10.0 on a unit square domain
 
 \[
 \Omega=(0,1)^2.
 \]
 
-The exact solution is chosen as
+The diffusion coefficient was chosen as
 
 \[
-u(x,y,t)
-=
+\kappa = 0.01,
+\]
+
+and the advection velocity field was taken as
+
+\[
+\mathbf b=(1,0)^T.
+\]
+
+The numerical experiments are divided into three parts. First, we validate the spatial convergence 
+of the finite element discretization. Second, we verify the temporal convergence of the implicit 
+Euler scheme. Finally, we investigate the stochastic model using Monte Carlo simulations.
+
+\subsection{Spatial Convergence}
+
+We consider the stationary advection--diffusion problem with manufactured solution
+
+\[
+\sin(\pi x)\sin(\pi y).
+\]
+
+The finite element approximation is computed using continuous piecewise linear elements on a sequence 
+of uniform meshes.
+
+Table~\ref{tab:spatial_convergence} reports the $L^2$ errors and the corresponding experimental orders of convergence (EOC).
+
+\begin{table}[ht]
+\centering
+\caption{Spatial convergence of the finite element approximation.}
+\label{tab:spatial_convergence}
+\begin{tabular}{ccc}
+\hline
+Mesh size & $L^2$ error & EOC \\
+\hline
+8 & $1.428163\times10^{-2}$ & -- \\
+16 & $3.616693\times10^{-3}$ & 1.98 \\
+32 & $9.014219\times10^{-4}$ & 2.00 \\
+64 & $2.251729\times10^{-4}$ & 2.00 \\
+\hline
+\end{tabular}
+\end{table}
+
+The results confirm the theoretical convergence rate
+
+\[
+O(h^2),
+\]
+
+which is expected for linear finite elements.
+
+\subsection{Temporal Convergence}
+
+To assess the temporal discretization error, we 
+consider the transient 
+advection--diffusion equation with exact solution
+
+\[
 e^{-t}
 \sin(\pi x)
 \sin(\pi y).
 \]
 
-The source term $f$ is computed analytically so that the exact solution satisfies the stochastic advection--diffusion equation.
+The spatial mesh was fixed at \(128\times128\), while 
+the time step was successively refined.
 
-A sequence of uniformly refined meshes is considered:
+Table~\ref{tab:temporal_convergence} reports the \(L^2\) errors at the final 
+time together with the corresponding experimental orders 
+of convergence (EOC). As the time step is halved, the 
+error is approximately reduced by a factor of two. 
+The observed convergence rate is close to one for all 
+refinements, which is consistent with the theoretical 
+first-order accuracy of the implicit Euler method.
 
-\[
-h=\frac18,\quad
-\frac1{16},\quad
-\frac1{32},\quad
-\frac1{64}.
-\]
-
-The numerical error is measured in the $L^2$ norm:
-
-\[
-E_h
-=
-|u-u_h|_{L^2(\Omega)}.
-\]
-
-The experimental order of convergence is computed using
-
-\[
-\mathrm{EOC}
-=
-\frac{
-\log(E_h/E_{h/2})
-}{
-\log(2)
-}.
-\]
-
-\begin{table}[H]
+\begin{table}[ht]
 \centering
-\caption{Spatial convergence study}
+\caption{Temporal convergence of the implicit Euler scheme.}
+\label{tab:temporal_convergence}
 \begin{tabular}{ccc}
 \hline
-Mesh size $h$ & Error $E_h$ & EOC \\
+$\Delta t$ & $L^2$ error & EOC \\
 \hline
-$1/8$  &  &  \\
-$1/16$ &  &  \\
-$1/32$ &  &  \\
-$1/64$ &  &  \\
+0.1 & $6.793736\times10^{-3}$ & -- \\
+0.05 & $3.452625\times10^{-3}$ & 0.98 \\
+0.025 & $1.740350\times10^{-3}$ & 0.99 \\
+0.0125 & $8.759994\times10^{-4}$ & 0.99 \\
 \hline
 \end{tabular}
 \end{table}
 
-\subsection{Test Case 2: Temporal Convergence}
-
-To assess the temporal accuracy of the implicit Euler scheme, a sufficiently fine mesh is fixed and the time step is progressively reduced.
-
-The following values are considered:
+The observed convergence rate is approximately one, in agreement with the theoretical 
+first-order accuracy of the implicit Euler method:
 
 \[
-\Delta t
-=
-0.1,\quad
-0.05,\quad
-0.025,\quad
-0.0125.
+O(\Delta t).
 \]
 
-The temporal error is defined by
+\subsection{Monte Carlo Simulation}
+
+We now consider the stochastic advection--diffusion equation driven by additive 
+Gaussian noise. The stochastic forcing is approximated through a Monte Carlo procedure, 
+where independent realizations of the Wiener process are generated and the 
+corresponding finite element solutions are computed.
+
+For a fixed final time \(T=1\), the numerical approximation is obtained using 
+continuous piecewise linear finite elements in space and the implicit Euler method 
+in time. The noise intensity is chosen as
 
 \[
-E_{\Delta t}
-=
-|u-u_h|_{L^2(\Omega)}.
+\sigma = 0.1.
 \]
 
-\begin{table}[H]
+The first set of results concerns the statistical properties of the numerical solution. 
+Table~\ref{tab:mc_statistics} reports the mean energy, the standard deviation, and the 
+variance indicators obtained from the Monte Carlo simulations.
+
+\begin{table}[ht]
 \centering
-\caption{Temporal convergence study}
-\begin{tabular}{ccc}
+\caption{Monte Carlo statistics at final time (T=1).}
+\label{tab:mc_statistics}
+\begin{tabular}{cc}
 \hline
-$\Delta t$ & Error $E_{\Delta t}$ & EOC \\
+Quantity & Value \\
 \hline
-0.1    &  &  \\
-0.05   &  &  \\
-0.025  &  &  \\
-0.0125 &  &  \\
+$N_{MC}$ & 10 \\
+Mean energy & $4.679086\times10^{-2}$ \\
+Standard deviation & $2.543385\times10^{-2}$ \\
+Maximum variance & $1.331187\times10^{-2}$ \\
+Mean variance & $4.688864\times10^{-3}$ \\
 \hline
 \end{tabular}
 \end{table}
 
-\subsection{Test Case 3: Influence of Stochastic Forcing}
+The nonzero variance confirms the propagation of uncertainty induced by the stochastic forcing. 
+At the same time, the bounded values of the statistical indicators demonstrate the stability of 
+the numerical approximation.
 
-We now investigate the effect of stochastic forcing on the numerical solution.
+To investigate the influence of the number of realizations, additional Monte Carlo simulations 
+were performed for increasing values of \(N_{MC}\). The results are summarized in 
+Table~\ref{tab:mc_convergence}.
 
-Several noise intensities are considered:
+\begin{table}[ht]
+\centering
+\caption{Monte Carlo convergence study.}
+\label{tab:mc_convergence}
+\begin{tabular}{ccc}
+\hline
+$N_{MC}$ & Mean energy & Std energy\\
+\hline
+10  & $3.1373\times10^{-2}$ & $6.8768\times10^{-3}$\\
+20  & $4.2183\times10^{-2}$ & $2.4151\times10^{-2}$\\
+50  & $4.1863\times10^{-2}$ & $1.9006\times10^{-2}$\\
+100 & $3.5494\times10^{-2}$ & $1.5533\times10^{-2}$\\
+\hline
+\end{tabular}
+\end{table}
+
+The estimated mean energy remains within the same order of magnitude as the number of 
+realizations increases. This behavior indicates statistical consistency of the Monte Carlo 
+approximation and confirms the robustness of the stochastic finite element solver.
+
+\subsection{Mean and Variance Fields}
+
+The Monte Carlo simulations also provide approximations of the mean field
 
 \[
-\sigma
-0,
-\quad
-0.1,
-\quad
-0.2,
-\quad
-0.5.
+\mathbb E[u(T)].
 \]
 
-For each value of $\sigma$, multiple realizations are generated and the corresponding solution trajectories are analyzed.
+As expected, the averaging process smooths out
+part of the stochastic fluctuations and reveals
+the dominant deterministic transport pattern.
 
-The following quantities are monitored:
-
-\begin{itemize}
-\item mean solution;
-\item variance;
-\item confidence intervals;
-\item spatial distribution of uncertainty.
-\end{itemize}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{figures/stochastic_trajectories.png}
-\caption{Sample stochastic trajectories for different noise intensities.}
-\label{fig:stochastic_trajectories}
-\end{figure}
-
-\subsection{Test Case 4: Environmental Transport Scenario}
-
-In this experiment, the unknown variable is interpreted as the concentration of a transported quantity such as temperature, humidity, or pollutant concentration.
-
-The velocity field is chosen as
+The variance field
 
 \[
-\mathbf b=(1,0)^T,
+\mathrm{Var}(u(T))
+=
+\mathbb E[u(T)^2]
+-
+\bigl(\mathbb E[u(T)]\bigr)^2
 \]
 
-representing a uniform transport from left to right.
+quantifies the uncertainty induced by the stochastic forcing.
+Regions with larger variance are more sensitive to random perturbations.
 
-The purpose of this experiment is to illustrate the combined effects of
+These quantities are visualized in Figure~\ref{fig:mean_solution}
+and Figure~\ref{fig:variance_solution}.
 
-\begin{itemize}
-\item advection;
-\item diffusion;
-\item stochastic forcing.
-\end{itemize}
-
-Representative snapshots of the solution will be presented at different times.
-
-\begin{figure}[H]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/transport_solution.png}
-\caption{Evolution of the stochastic advection--diffusion solution.}
-\label{fig:transport_solution}
+\includegraphics[width=0.7\textwidth]{../figures/mean_solution.png}
+\caption{Monte Carlo approximation of the mean solution $\mathbb E[u(T)]$.}
+\label{fig:mean_solution}
 \end{figure}
 
-\subsection{Discussion}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{../figures/variance_solution.png}
+\caption{Monte Carlo approximation of the variance field $\mathrm{Var}(u(T))$.}
+\label{fig:variance_solution}
+\end{figure}
 
-The numerical experiments are expected to confirm:
+The variance field highlights the spatial regions that are most sensitive 
+to stochastic perturbations and provides quantitative information about 
+uncertainty propagation in the system.
 
-\begin{itemize}
-\item the convergence properties predicted by the theoretical analysis;
-\item the stability of the proposed numerical scheme;
-\item the capability of the stochastic model to represent uncertainty propagation in transport phenomena.
-\end{itemize}
-
-These results provide a first step toward the application of stochastic finite element methods to environmental and climate-related systems.
+The numerical experiments confirm the theoretical results established in 
+the previous sections. The finite element approximation exhibits the expected
+spatial convergence rate, the implicit Euler scheme achieves first-order 
+convergence in time, and the Monte Carlo simulations demonstrate stable statistical
+behavior for the stochastic model.

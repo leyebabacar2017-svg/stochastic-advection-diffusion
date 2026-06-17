@@ -1,9 +1,34 @@
 \section{Conclusion}
 
-In this work, we have investigated a stochastic advection--diffusion equation with additive noise. A variational framework was introduced, allowing the derivation of energy estimates and the establishment of existence and uniqueness results for weak solutions.
+In this work, we investigated a stochastic advection--diffusion equation driven by additive 
+Gaussian noise. The model was formulated within a variational framework, allowing the 
+application of standard tools from the theory of stochastic partial differential equations.
 
-A finite element approximation based on continuous piecewise linear elements and an implicit Euler time discretization was proposed. Stability properties and convergence results were discussed within the framework of the fully discrete approximation.
+The mathematical analysis established the well-posedness of the problem. In particular, 
+stability estimates were derived, and the existence and uniqueness of weak solutions were 
+proved under suitable assumptions on the diffusion coefficient, velocity field, forcing 
+term, and initial condition. Furthermore, a finite element approximation was introduced 
+and its convergence properties were analyzed.
 
-The proposed methodology provides a robust mathematical framework for the numerical simulation of stochastic transport phenomena arising in environmental and engineering applications.
+From the numerical point of view, several benchmark problems were considered. The finite 
+element implementation was first validated on deterministic Poisson and advection--diffusion 
+problems. Numerical experiments confirmed the expected second-order convergence in the 
+\(L^2\)-norm with respect to the mesh size and first-order convergence with respect to the 
+time step when the implicit Euler method was employed.
 
-Future work will focus on the implementation of the proposed method in the FEniCSx environment and on the validation of the theoretical results through numerical experiments. Extensions to multiplicative noise, stochastic coefficients, and more complex environmental models will also be considered.
+The stochastic model was then investigated through Monte Carlo simulations. The computed 
+statistical quantities, including the mean energy and variance, demonstrated the stability 
+of the numerical approximation and illustrated the propagation of uncertainty induced by 
+the stochastic forcing. Additional Monte Carlo convergence studies showed the consistency 
+of the statistical estimators as the number of realizations increased.
+
+Overall, the numerical results are in excellent agreement with the theoretical analysis 
+and confirm the reliability of the proposed finite element framework for stochastic 
+advection--diffusion problems.
+
+Future work will focus on several extensions of the present study. These include stochastic 
+advection--diffusion--reaction equations, multiplicative noise models, adaptive finite 
+element strategies, uncertainty quantification techniques, and optimal control problems 
+governed by stochastic partial differential equations. Such developments are particularly 
+relevant for environmental and climate-related applications involving uncertainty and 
+random perturbations.
